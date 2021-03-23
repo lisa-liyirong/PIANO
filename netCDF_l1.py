@@ -38,7 +38,7 @@ path_2NetCDF = os.path.join(path_parent,'doppler_wind_lidar_toolbox','2NetCDF')
 sys.path.append(path_2NetCDF)
 import piano_parameters as pp
 import hpl2NetCDF as h2n
-
+sys.exit()
 #%% path of input level0 files and level1 output directory
 '''
 The directory structure and the files names of level0 data matchs the 

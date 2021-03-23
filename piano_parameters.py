@@ -14,9 +14,12 @@ functions:
 """
 import sys,os
 import numpy as np
-import pyproj as pp
+import pyproj as ppj
 import matplotlib.dates as mdates
 
+path_parent = os.path.abspath('..')
+path_cr = os.path.join(path_parent,'doppler_wind_lidar_toolbox','coplanar_retrieval')
+sys.path.append(path_cr)
 import calc_retrieval as cr
 
 class lidar_location:     
@@ -40,10 +43,10 @@ class lidar_location:
         self.diff_geoid = diff_geoid
         self.diff_bessel = diff_bessel
         
-        proj_tiris = pp.Proj(init='epsg:31254')
-        proj_wgs84 = pp.Proj(init='epsg:4326')
+        proj_tiris = ppj.Proj(init='epsg:31254')
+        proj_wgs84 = ppj.Proj(init='epsg:4326')
         
-        self.x,self.y,alt_dummy = pp.transform(proj_wgs84,proj_tiris,lon,lat,zsl)
+        self.x,self.y,alt_dummy = ppj.transform(proj_wgs84,proj_tiris,lon,lat,zsl)
     
 class scan_type():
     def __init__(self,name,lidars,scan_files,orientation):
@@ -98,11 +101,13 @@ def load_scaninfo(scan_scenario):
 
 
 '''
-Return calc_retrieval.grid for specific scan pattern (here only scenario0) and
-lattice length delta_l
+Define grid for specific scan pattern (here: rhisn, rhiew and ppi3) 
+and lattice length delta_l
 input:
-    scan - string
-    delta_l - float
+    scan (string)   - identifier of scan pattern
+    delta_l (float) - lattice length of grid
+return:
+    calc_retrieval.grid
 The grid is defined between lidar locations. Therefore, one lidar is put in 
 the horizontal centre (x=0, y=0) of a metric spherical coordinate system (x,y,z) 
 and the other lidar locations are defined relative to this centre. 
@@ -112,9 +117,10 @@ def load_grid(scan,delta_l):
     # central lidar
     origin_x, origin_y = lidars_info['SLXR_142'].x, lidars_info['SLXR_142'].y
     
-    delta_z = 2000
-    # vertical grid 
-    if scan == 'rhisn':
+    delta_z = 2000 # vertical extent of the vertically orientated planes 
+    
+
+    if scan == 'rhisn': # vertical grid 
         lidars = ['SLXR_142','SL_75']
         for lidar in lidars:
             loc = lidars_info[lidar]
@@ -137,8 +143,8 @@ def load_grid(scan,delta_l):
         y = xy*np.sin(alpha)
         z = np.arange(z_min,z_min+delta_z,delta_l)
       
-    # vertical grid 
-    elif scan == 'rhiew':
+     
+    elif scan == 'rhiew': # vertical grid
         lidars = ['SLXR_142','SL_74']
         for lidar in lidars:
             loc = lidars_info[lidar]
@@ -161,8 +167,8 @@ def load_grid(scan,delta_l):
         y = xy*np.sin(alpha)
         z = np.arange(z_min,z_min+delta_z,delta_l)
         
-    # horizontal grid
-    elif scan == 'ppi3':
+    
+    elif scan == 'ppi3': # horizontal grid
         lidars = ['SLXR_142','SL_75','SL_74']
         for lidar in lidars:
             loc = lidars_info[lidar]
