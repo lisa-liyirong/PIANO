@@ -8,7 +8,7 @@ classes:
     scan_type(name,lidars,scan_files,orientation)
 functions: 
     load_lidars_info() - returns lidar_location() for SLXR_142, SL_88, SL_75 and SL_74
-    load_scaninfo(scan_scenario) - scan_scenario = {'scenario0_split', 'scenario_christmans','scenario0','scenario1'}
+    load_scaninfo(scan_scenario) - scan_scenario = {'scenario1a', 'scenario1b', 'scenario2','scenario3'}
     load_grid(scan,delta_l) - scan = {'rhiew','rhisn','ppi3'}
 @author: maren
 """
@@ -67,7 +67,7 @@ def load_lidars_info():
 
 
 def load_scaninfo(scan_scenario):
-    if scan_scenario == 'scenario0_split':
+    if scan_scenario == 'scenario1b':
         rhisn = scan_type('rhiew',['SLXR_142','SL_74'],['csm_rhi_78.30_0.00-45.00_16x_s1_w500','csm_rhi_258.30_10.00-100.00_16x_s3_w500','csm_rhi_258.30_0.00-90.00_16x_s3_w500'],'vertical')
         rhiew = scan_type('rhisn',['SLXR_142','SL_75'],['csm_rhi_151.40_0.00-45.00_16x_s1_w500','csm_rhi_331.40_10.00-100.00_16x_s3_w500','csm_rhi_331.40_0.00-90.00_16x_s3_w500'],'vertical')
         ppi3 = scan_type('ppi3',['SLXR_142','SL_75','SL_74'],['csm_ppi_1.60_70.00-160.00_16x_s3_w500','csm_ppi_1.00_320.00-410.00_16x_s3_w500','csm_ppi_0.50_180.00-270.00_16x_s3_w500'],'horizontal')
@@ -75,13 +75,13 @@ def load_scaninfo(scan_scenario):
         
         scan_types=[rhisn,rhiew,ppi3,vad24]
         
-    elif scan_scenario == 'scenario_christmans':
+    elif scan_scenario == 'scenario3':
         rhi = scan_type('rhi',['SLXR_142'],['csm_rhi_258.30_0.00-45.00_32x_s1_w500','csm_rhi_151.40_0.00-45.00_32x_s1_w500','csm_rhi_78.30_0.00-45.00_32x_s1_w500'],'vertical')
         vad24 = scan_type('vad24',['SLXR_142'],['ss_vad_70.00_24rays_1x'],'conical')
         
         scan_types=[rhi,vad24]
         
-    elif scan_scenario == 'scenario0':
+    elif scan_scenario == 'scenario1a':
         rhisn = scan_type('rhiew',['SLXR_142','SL_74'],['csm_rhi_78.30_0.00-40.00_24x_s1_w500','csm_rhi_258.30_0.00-90.00_30x_s3_w500','csm_rhi_78.30_0.00-45.00_33x_s1_w1000','csm_rhi_258.30_0.00-90.00_33x_s3_w1000'],'vertical')
         rhiew = scan_type('rhisn',['SLXR_142','SL_75'],['csm_rhi_151.40_0.00-60.00_16x_s1_w500','csm_rhi_331.40_0.00-90.00_33x_s3_w1000','csm_rhi_151.40_0.00-45.00_33x_s1_w1000','csm_rhi_331.40_0.00-90.00_33x_s3_w500'],'vertical')
         ppi3 = scan_type('ppi3',['SLXR_142','SL_75','SL_74'],['csm_ppi_1.60_25.00-205.00_10x_s2_w500','csm_ppi_0.50_180.00-270.00_33x_s3_w1000','csm_ppi_1.00_320.00-410.00_33x_s3_w1000','csm_ppi_1.60_70.00-160.00_33x_s3_w1000','csm_ppi_1.00_320.00-410.00_33x_s3_w500'],'horizontal')
@@ -89,9 +89,9 @@ def load_scaninfo(scan_scenario):
         
         scan_types=[rhisn,rhiew,ppi3,vad24]
         
-    elif scan_scenario == 'scenario1':
-        rhisn = scan_type('rhiew_m',['SLXR_142','SL_75','SL_74'],['csm_rhi_78.30_0.00-40.00_24x_s1_w500','csm_rhi_348.30_0.00-120.00_24x_s3_w500','csm_rhi_258.30_0.00-120.00_24x_s3_w500'],'vertical')
-        rhiew = scan_type('rhisn_m',['SLXR_142','SL_75','SL_74'],['csm_rhi_151.40_0.00-60.00_16x_s1_w500','csm_rhi_331.40_0.00-180.00_16x_s3_w500','csm_rhi_241.40_0.00-180.00_16x_s3_w500'],'vertical')
+    elif scan_scenario == 'scenario2':
+        rhisn = scan_type('rhiew3',['SLXR_142','SL_75','SL_74'],['csm_rhi_78.30_0.00-40.00_24x_s1_w500','csm_rhi_348.30_0.00-120.00_24x_s3_w500','csm_rhi_258.30_0.00-120.00_24x_s3_w500'],'vertical')
+        rhiew = scan_type('rhisn3',['SLXR_142','SL_75','SL_74'],['csm_rhi_151.40_0.00-60.00_16x_s1_w500','csm_rhi_331.40_0.00-180.00_16x_s3_w500','csm_rhi_241.40_0.00-180.00_16x_s3_w500'],'vertical')
         ppi3 = scan_type('ppi3',['SLXR_142','SL_75','SL_74'],['csm_ppi_1.60_25.00-205.00_10x_s2_w500','csm_ppi_1.00_270.00-450.00_10x_s2_w500','csm_ppi_0.50_150.00-330.00_10x_s2_w500'],'horizontal')
         vad24 = scan_type('vad24',['SLXR_142','SL_75','SL_74'],['ss_vad_70.00_24rays_1x'],'conical')
         
