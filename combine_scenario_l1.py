@@ -2,10 +2,19 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Nov  8 11:58:45 2019
-Prepare level1 coordinated scan files in order to calc 2D retrievals
-here, only scenario0_split is considered
-!!! this code can only be used for scenario0_split; for the other scenarios
-manuel chagnes are necessary!!!
+Prepare level1 data (created with netCDF_l1.py) for estimating coplanar retrievals
+using netCDF_ret_l2.py. This code only works for the PIANO scan scenario scenario1b
+(details in piano_parameters.py).  
+
+To run this code, the module halo_data_operations.py and piano_parameters.py are required. 
+They can be found in the GITHub repositories:
+    marenha/PIANO/module halo_data_operations
+    marenha/PIANO/piano_parameters
+
+Used directories:
+    path_l1         - directory of *_l1.nc files
+    path_out        - output directory: path_l1/scan_scenario/yyyymmdd/[lidar_id]_[scan_pattern]_l1_[yyyymmdd]_[HH].nc
+
 @author: maren
 """
 import numpy as np
@@ -25,14 +34,14 @@ path_l1 = os.path.join('/mnt','PIANO_campaign','lidars','netCDF_public','level1/
 
 
 lidars_info = pp.load_lidars_info()
-scan_scenario = 'scenario0_split'
+scan_scenario = 'scenario1b'
 scan_types = pp.load_scaninfo(scan_scenario)
 
 path_out = os.path.join(path_l1,scan_scenario)
 
 '''
 in the netCDF file created in this code, the lidars location and the measurement points
-are defined in dependent of on certain point. Here, the SLXR142 lidar is chosen 
+are defined in dependence of on certain point. Here, the SLXR142 lidar is chosen 
 since it is part of each coordinated scan pattern
 '''
 origin=lidars_info['SLXR_142']
