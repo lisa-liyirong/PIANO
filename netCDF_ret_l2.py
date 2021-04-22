@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Mar  1 10:45:29 2018
-Calculation of two-dimensional wind fields from level2 netCDF data
+Calculation of two-dimensional wind fields from level1 netCDF data and export
+as .nc files. This code only works for the PIANO scan scenario scenario1b (details
+see piano_parameters.py). The inout data files were prepared with combine_scenario_l1.py.
+
+To run this code, the module hpl2NetCDF.py is required. It can be found in the 
+GITHub repository:
+    marenha/doppler_wind_lidar_toolbox/coplanar_retrieval
 @author: maren
 """
 import numpy as np
@@ -13,12 +19,17 @@ from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# Import modules
+path_parent = os.path.abspath('..')
+path_cr = os.path.join(path_parent,'doppler_wind_lidar_toolbox','coplanar_retrieval')
+sys.path.append(path_cr)
+import hpl2NetCDF as h2n
 import halo_data_operations as hdo
 import calc_retrieval as cr
 import piano_parameters as pp
 
 
-#%% path of level0 files and output folder
+#%% input directory (path_l1) and output directory (path_l2)
 path_l1 = os.path.join('/mnt','PIANO_campaign','lidars','netCDF_public','level1/')
 path_l2 = os.path.join('/mnt','PIANO_campaign','lidars','netCDF_public','level2/')
 # path_plot_out=os.path.join('/mnt','PIANO_campaign','lidars','quicklooks','vads')
@@ -27,7 +38,7 @@ path_l2 = os.path.join('/mnt','PIANO_campaign','lidars','netCDF_public','level2/
 lidars_info=pp.load_lidars_info()
 
 
-scan_scenario = 'scenario0_split'
+scan_scenario = 'scenario1b'
 scan_types_s0split=pp.load_scaninfo(scan_scenario)
 
 
