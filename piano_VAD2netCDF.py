@@ -47,7 +47,7 @@ dtn = 24*60*60 # seconds per day
 
 #%% path of level0 files and output folder
 # path_data = os.path.join('/mnt','PIANO_campaign','lidars','netCDF_public')
-path_data = os.path.join('P:\\','PIANO_data_upload','Lidars')
+path_data = os.path.join('P:\\','ZENODO_data_sets','Lidars')
 path_l1 = os.path.join(path_data,'level1')
 path_l2 = os.path.join(path_data,'level2')
 # path_plot_out=os.path.join('/mnt','PIANO_campaign','lidars','quicklooks','vads')
